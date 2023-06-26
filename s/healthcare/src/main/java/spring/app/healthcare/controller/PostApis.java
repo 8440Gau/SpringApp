@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import spring.app.healthcare.dto.MessageDTO;
 import spring.app.healthcare.dto.PatientDetailsDTO;
+import spring.app.healthcare.exception.PatientPostApisException;
 import spring.app.healthcare.service.PatientService;
 import spring.app.healthcare.validator.Validator;
 
@@ -27,12 +28,16 @@ public class PostApis {
 	private static Logger logger = LoggerFactory.getLogger(PostApis.class);
 
 	@RequestMapping(value = "addpatient", method = { RequestMethod.POST, RequestMethod.GET })
-	public ResponseEntity addpatient(@RequestBody PatientDetailsDTO patientDetailsDTO) throws Exception {
+	public ResponseEntity addpatient(@RequestBody PatientDetailsDTO patientDetailsDTO) {
 		Validator validator = new Validator();
 		String errormsg = validator.verifyField(patientDetailsDTO);
         Arrays.asList(errormsg.split("," )).stream().forEach(p-> logger.error(p));
 	   if(errormsg.length()==0 ) {
-		   return ResponseEntity.ok(patientService.addPatient(patientDetailsDTO));
+		   try {
+			return ResponseEntity.ok(patientService.addPatient(patientDetailsDTO));
+		   }catch(PatientPostApisException p) {
+			   return ResponseEntity.badRequest().body(p.getErrorMessage());
+		   }
 	   }
 	   return ResponseEntity.badRequest().body(errormsg);   
 	}

@@ -1,6 +1,6 @@
 package spring.app.healthcare.exception;
 
-public class PatientException extends RuntimeException {
+public class PatientPostApisException extends RuntimeException {
 	
 	private String errorCode;
 	private String errorMessage;
@@ -20,7 +20,7 @@ public class PatientException extends RuntimeException {
 	public String toString() {
 		return "PatientException [errorCode=" + errorCode + ", errorMessage=" + errorMessage + "]";
 	}
-	public PatientException(String errorCode, String errorMessage) {
+	public PatientPostApisException(String errorCode, String errorMessage) {
 		super();
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
