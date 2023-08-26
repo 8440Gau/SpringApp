@@ -6,14 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import spring.app.healthcare.dto.MessageDTO;
 import spring.app.healthcare.dto.PatientDetailsDTO;
 import spring.app.healthcare.exception.PatientPostApisException;
 import spring.app.healthcare.service.PatientService;
@@ -27,7 +24,7 @@ public class PostApis {
 	private PatientService patientService;
 	private static Logger logger = LoggerFactory.getLogger(PostApis.class);
 
-	@RequestMapping(value = "addpatient", method = { RequestMethod.POST, RequestMethod.GET })
+	@PostMapping(value = "addpatient")
 	public ResponseEntity addpatient(@RequestBody PatientDetailsDTO patientDetailsDTO) {
 		Validator validator = new Validator();
 		String errormsg = validator.verifyField(patientDetailsDTO);
@@ -40,6 +37,6 @@ public class PostApis {
 		   }
 	   }
 	   return ResponseEntity.badRequest().body(errormsg);   
-	}
+	} 
 
 }

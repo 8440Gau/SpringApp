@@ -13,5 +13,7 @@ public interface PatientRepository extends JpaRepository<PatientEntity, Long> {
 	
 	//@Query("Select p from PATIENT_DETAILS p where p.patient_address=? AND p.patient_name =? ")
 	List<PatientEntity> findByname(String name);
+	
+	PatientEntity findBypatientId(Long id);
 
 }

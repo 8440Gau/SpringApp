@@ -10,8 +10,13 @@ public class Validator {
 		if (patientDetailsDTO.getName().length() == 0) {
 			errormessage.append("Name must not be null,");
 		}
-		if (patientDetailsDTO.getAddress().length() > 20) {
+		else if (patientDetailsDTO.getAddress().length() > 20) {
 			errormessage.append("Address must be within 10 char,");
+		}
+		else if( patientDetailsDTO.getAddress().length() ==0) {
+			errormessage.append("lenght is Zero,");
+		}else{
+			
 		}
 		return errormessage.toString();
 	}
